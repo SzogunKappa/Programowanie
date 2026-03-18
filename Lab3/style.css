@@ -1,7 +1,43 @@
 body{
-    background-color: gray;
+    background-color: white;
+    font-family: calibri;
+    font-size: large;
+    color:darkblue;}
+#content{
+justify-content: center;
+align-items: center;
+display: block;
 }
-scrollBox{
-    width: 400px;
-    height: 100px;
+
+#scrollBox{
+    width: 600px;
+    height: 200px;
+    overflow: auto;
+    border: dashed;
+    margin-left: 10%;
+    text-align: justify;
+}
+
+#tr-middle{
+    background-color: lightgray;
+}
+td{
+    border: solid;
+    border-width: 1px;
+    padding: 15px;
+    text-align: center;
+}
+
+table{
+    border-collapse: collapse;
+}
+a{
+    color: green;
+    font-style: ;
+}
+a:hover {
+    color:rgb(1, 56, 1);
+}
+ul{
+    list-style-type: circle;
 }
