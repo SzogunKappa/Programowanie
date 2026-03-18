@@ -2,11 +2,12 @@ body{
     background-color: white;
     font-family: calibri;
     font-size: large;
-    color:darkblue;}
+    color:darkblue;
+}
 #content{
-justify-content: center;
-align-items: center;
-display: block;
+  display: block;
+  justify-content: center;
+  align-items: center;
 }
 
 #scrollBox{
@@ -33,7 +34,6 @@ table{
 }
 a{
     color: green;
-    font-style: ;
 }
 a:hover {
     color:rgb(1, 56, 1);
