@@ -1,17 +1,11 @@
 <script>
     function choinka(n){
-        for (i = n; i>0 ; i --){
+        for (let i = 0; i<n ; i++){
         var sekcja = ""
-        for (x = n-1;x >0;x--){
-            if (n>x){
-                sekcja = sekcja+"*"
-            }
-            else{
-                sekcja = sekcja + " "
-            }
-        }
+        sekcja = " ".repeat(n-i)
+        sekcja = sekcja + "*".repeat((i*2)+1)
         console.log(sekcja)
         }
     }
-    console.log(choinka(5))
+    choinka(10)
 </script>
