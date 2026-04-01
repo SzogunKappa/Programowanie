@@ -1,16 +1,21 @@
 <script>
     function ciag(n){
     var ciag_wartosc = 0
-    for (x = 1; x<=n ; x++){
-        
-        if (x%2 == 0){
-            ciag_wartosc = ciag_wartosc - 1/x
+    for (x = 0; x<n ; x++){
+        let wartosc = (1/((2*x)+1))
+        console.log(wartosc)
+        if (x%2 == 1){
+            ciag_wartosc = ciag_wartosc - wartosc
+            console.log("odejmuje")
         }
         else{
-            ciag_wartosc = ciag_wartosc + 1/x
+            ciag_wartosc = ciag_wartosc + wartosc
+                        console.log("dodaje")
+
         }
-        return (4*ciag_wartosc)
     }
+    return (4*ciag_wartosc)
+
 }
-console.log(ciag(20))
+console.log(ciag(21))
 </script>
