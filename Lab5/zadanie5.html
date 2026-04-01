@@ -1,0 +1,16 @@
+<script>
+    function ciag(n){
+    var ciag_wartosc = 0
+    for (x = 1; x<=n ; x++){
+        
+        if (x%2 == 0){
+            ciag_wartosc = ciag_wartosc - 1/x
+        }
+        else{
+            ciag_wartosc = ciag_wartosc + 1/x
+        }
+        return (4*ciag_wartosc)
+    }
+}
+console.log(ciag_wartosc(5))
+</script>
