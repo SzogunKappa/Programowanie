@@ -1,0 +1,72 @@
+<html>
+<head>
+    <script>
+
+    </script>
+ <meta charset="utf-8">
+ <style>
+ #reset {display:inline-block;}
+ #stop {display:none;}
+ </style>
+</head>
+<body>
+ <h1 id="czas">
+ <span id="godziny">00</span>:<span id="minuty">00</span>:<span id="sekundy">00</span>
+ </h1>
+ <button id = "start">START</button>
+ <button id = "stop">STOP</button>
+ <button id = "zapisz">ZAPISZ</button>
+ <button id = "reset">RESET</button>
+ <p id = "stan_stopera"></p>
+ <ul id = "zapisane_czasy">
+ </ul>
+</body>
+</html>
+<script>
+    console.log("Hello")
+    const start = document.getElementById("start")
+    const save = document.getElementById("zapisz")
+    const stop = document.getElementById("stop")
+    const reset = document.getElementById("reset")
+    const hour_spam = document.getElementById("godziny")
+    const min_spam = document.getElementById("godziny")
+    const sec_spam = document.getElementById("godziny")
+    let hour = 0
+    let min = 0
+    let sec = 0
+    var t = NaN
+
+    function onStart(){
+        console.log("START")
+        t=setInterval(onTick,1000)
+        start.style.display = "none"
+        stop.style.display = "inline-block"
+    }
+
+    function onStop(){
+        console.log("STOP")
+        stop.style.display = "none";
+        start.style.display = "inline-block";
+        clearInterval(t);
+    }
+
+    function onTick(){
+        sec = sec + 1
+        if (sec > 59){
+            sec = 0
+            min = min +1
+            sec_spam.innerHTML = sec
+            min_spam.innerHTML = min
+        }
+        if (min > 59){
+            min = 0
+            hour = hour + 1
+            sec_spam.innerHTML = sec
+            min_spam.innerHTML = min
+            hour_spam.innerHTML = hour 
+        }
+
+    }
+    start.addEventListener("click",onStart)
+    stop.addEventListener("click",onStop)
+</script>
