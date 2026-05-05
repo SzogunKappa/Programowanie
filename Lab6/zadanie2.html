@@ -7,6 +7,7 @@
  <style>
  #reset {display:inline-block;}
  #stop {display:none;}
+ #reset {display: none;}
  </style>
 </head>
 <body>
@@ -29,18 +30,29 @@
     const stop = document.getElementById("stop")
     const reset = document.getElementById("reset")
     const hour_spam = document.getElementById("godziny")
-    const min_spam = document.getElementById("godziny")
-    const sec_spam = document.getElementById("godziny")
+    const min_spam = document.getElementById("minuty")
+    const sec_spam = document.getElementById("sekundy")
+    const stan=document.getElementById("stan_stopera")
+    const lista=document.getElementById("zapisane_czasy")
+    
     let hour = 0
     let min = 0
     let sec = 0
     var t = NaN
+    let saves = 0
+
+    function onSave(){
+        saves = saves+1
+        lista.innerHTML += "<li>"+saves+". "+addZero(hour)+":"+addZero(min)+":"+addZero(sec)
+    }
 
     function onStart(){
         console.log("START")
         t=setInterval(onTick,1000)
         start.style.display = "none"
         stop.style.display = "inline-block"
+        stan.innerHTML="trwa obliczanie"
+        reset.style.display="none"
     }
 
     function onStop(){
@@ -48,6 +60,30 @@
         stop.style.display = "none";
         start.style.display = "inline-block";
         clearInterval(t);
+        stan.innerHTML=""
+        reset.style.display="inline-block"
+
+    }
+
+    function onReset(){
+        saves = 0
+        lista.innerHTML=""
+        onStop()
+        sec=0
+        min=0
+        hour=0
+        hour_spam.innerHTML = addZero(hour) 
+        min_spam.innerHTML = addZero(min)
+        sec_spam.innerHTML = addZero(sec)
+        
+
+    }
+
+    function addZero(n){
+        if (n<10){
+            return "0"+n
+        }
+        return n
     }
 
     function onTick(){
@@ -55,18 +91,21 @@
         if (sec > 59){
             sec = 0
             min = min +1
-            sec_spam.innerHTML = sec
-            min_spam.innerHTML = min
+            min_spam.innerHTML = addZero(min)
         }
         if (min > 59){
             min = 0
             hour = hour + 1
-            sec_spam.innerHTML = sec
-            min_spam.innerHTML = min
-            hour_spam.innerHTML = hour 
+            min_spam.innerHTML = addZero(min)
+            hour_spam.innerHTML = addZero(hour) 
         }
+        sec_spam.innerHTML = addZero(sec)
 
     }
     start.addEventListener("click",onStart)
     stop.addEventListener("click",onStop)
+    reset.addEventListener("click",onReset)
+    save.addEventListener("click",onSave)
+
+
 </script>

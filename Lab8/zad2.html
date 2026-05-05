@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>make a irrational number</p>
+    <form action="">
+        <input type="number" name="" id="real">
+        <input type="number" id="fake">
+        <input type="button" value="WYSLIJ" onclick="createNumber()">
+    </form>
+    <br>
+    <p>make list of irrational numbers</p>
+    <form>
+        <input type="number" id = "min">
+        <input type="number" name="" id="max">
+        <input type="number" id = "total">
+        <input type="button" value="MAKE LIST" onclick="make_numbers()">
+
+    </form>
+</body>
+</html>
+<script>
+    const doc_real = document.getElementById("real")
+    const doc_fake = document.getElementById("fake")
+    const doc_min = document.getElementById("min")
+    const doc_max = document.getElementById("max")
+    const doc_total = document.getElementById("total")
+class complex{
+    constructor(real,fake){
+        this.real = real;
+        this.fake = fake;
+    }
+
+    print(){
+        let symbol = " + "
+        if (this.fake < 0){
+            this.fake = this.fake*(-1)
+            symbol = " - "
+        }
+        return ""+this.real+symbol+this.fake+"i"
+    }
+
+    module(){
+        return (this.real**2 + this.fake**2)**(1/2)
+    }
+
+}
+
+function createNumber(){
+    let real = Number(doc_real.value)
+    let fake = Number(doc_fake.value)
+    var new_complex = new complex(real,fake)
+    console.log(new_complex)
+    console.log(new_complex.print())
+    console.log(new_complex.module())
+}
+function make_numbers(){
+    let min = Number(doc_min.value)
+    let max = Number(doc_max.value)+1
+    let total = doc_total.value
+    max = max - min
+    let irr_list = []
+    for (x = 0; x<total; x++){
+        let random_real = Math.floor(Math.random()*max)+min
+        let random_fake = Math.floor(Math.random()*max)+min
+        irr_list[x] = new complex(random_real,random_fake)
+    }
+    console.log(irr_list);
+
+    const positive= irr_list.filter((Object) => (Object.real>0 && Object.fake>0))
+    console.log(positive)
+
+    const swap = irr_list.map(a => ({real: a.fake, fake:a.real}));
+    console.log(swap)
+
+    const sum_mod = irr_list.reduce((total, obj) => {return total + obj.module();}, 0);
+    console.log(sum_mod)
+
+    const minimum = irr_list.reduce((min, obj) => Math.min(min, obj.module()), irr_list[0].module());
+    console.log(minimum)
+
+    const max_fake = irr_list.reduce((max,obj) => Math.max(max,obj.fake),irr_list[0].fake)
+    console.log(max_fake)
+}
+
+</script>

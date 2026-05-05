@@ -1,0 +1,28 @@
+#sidebar{
+    background-color: lightcoral;
+    width: 200px;
+    height: 300px;
+    border:10px;
+    margin: 2px 2px 2px 2px;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+#border{
+    background-color: lightgreen;
+    width: 100vw;
+    height: 100vh;
+}
+
+#cat{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    cursor: url("kiss.png") 50 25, auto;
+
+
+}
+

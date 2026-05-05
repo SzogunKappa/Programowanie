@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="Name">Nazwa</label>
+<input type="text" name="Name" id="name">
+<label for="email">Email</label>  
+<input type="email" name="Name" id="email"> 
+<label for="password1">Hasło</label>
+<input type="password" name="Name" id="password1">
+<label for="password2">Podaj jeszcze raz to hasło</label>      
+<input type="password" name="Name" id="password2">
+<label for="date">Data urodzenia</label>   
+<input type="date" name="Name" id="date">
+<p>płeć</p>
+<div id="radio1">
+    <input type="radio" name="gender" value="men" id="radio_men">
+    <label for="radio_men">mężczyzna</label>
+    <input type="radio" name="gender" value="women" id="radio_women">
+    <label for="radio_women">kobieta</label>
+    <input type="radio" name="gender" value="women" id="none">
+    <label for="radio_women">Wolę nie podać</label>
+</div display=" block flex">
+<label for="regulamin" id="regulamin_label">Akceptuje regulamin</label>
+<input type="checkbox" id="regulamin" display="block">
+
+<p>Wybór rodzaju konta</p>
+<div id="radio2">
+    <input type="radio" name="subscription" value="men" id="free_sub">
+    <label for="radio_men">Wersja darmowa</label>
+    <input type="radio" name="subscription" value="women" id="standard_sub">
+    <label for="radio_women">Wersja standardowa</label>
+    <input type="radio" name="subscription" value="women" id="premium_sub">
+    <label for="radio_women">Wersja premium</label>
+</div>
+<ol id="RegisterError">
+
+</ol>
+
+<input type="button" value="Rejestrój" onclick="validation()">
+
+<div id ="user">
+
+</div>
+
+
+</body>
+</html>
+<style>
+    body{
+        display: block;
+    }
+    input{
+        display: block;
+        margin: 5px;
+    }
+    #radio1, #radio1 > *,#radio2, #radio2>*{
+        display: block flex;
+        margin: 3px;
+    }
+</style>
+
+<script>
+    const name = document.getElementById("name")
+    const email = document.getElementById("email")
+    const password1 = document.getElementById("password1")
+    const password2 = document.getElementById("password2")
+    const date = document.getElementById("date")
+    const alphanumeric = /^[a-z0-9]+$/i
+    let date_value = ""
+    let gender=''
+    let subscription=''
+    
+    let badInputList = []
+    var error_list = document.getElementById("RegisterError")
+    error_list.innerHTML = ""
+
+    function radioGenderChoice(){
+        const men = document.getElementById("radio_men")
+        const women = document.getElementById("radio_women")
+        const no_gender = document.getElementById("none")
+        if (men.checked) {return "men"}
+        if (women.checked) {return "women"}
+        if (no_gender.checked) {return "noGener"}
+        badInput(document.getElementById("radio1"))
+        add_li("Wybierz płeć")
+        return "błąd"
+    }
+
+    function radioSubscriptionChoice(){
+        let free = document.getElementById("free_sub")
+        let standard = document.getElementById("standard_sub")
+        let premium = document.getElementById("premium_sub")
+        if (free.checked) {return "free"}
+        if (standard.checked) {return "standard"}
+        if (premium.checked) {return "premium"}
+        badInput(document.getElementById("radio2"))
+        add_li("Wybierz rodzaj konta")
+        return "błąd"
+    }
+
+    function checkRegulamin(){
+        
+        console.log("Regulamin")
+        let regulamin = document.getElementById("regulamin")
+        if (regulamin.checked){}
+        else {
+            add_li("Regulamin nie jest potwierdzony!")
+            let label=document.getElementById("regulamin_label")
+            badInput(label)
+            return false}
+    }
+
+    function badInput(element){
+        element.style.backgroundColor = "pink";
+        badInputList.push(element)
+    }
+
+    function clearBadInput(){
+        while (badInputList.length>0){
+            let element = badInputList.pop()
+            element.style.backgroundColor="white"
+        }
+    }
+
+    function checkPassword(){
+        const pass_check = new RegExp(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+        console.log(password1.value +" "+password2.value)
+        if (password1.value==""){badInput(password1)
+            add_li("złe hasło!")
+        }
+        if (password1.value != password2.value){badInput(password2)
+            add_li("hasła muszą być takie same!")
+        }
+        if (!(pass_check.test(password1.value))){
+            badInput(password1)
+            add_li("hasło musi mieć minimum 8 znaków, 1 literę i 1 liczbę")
+        }
+    }
+
+    function checkName(){
+        if (name.value==""){
+            add_li("Podaj nazwe konta!")
+            badInput(name)}
+        if (alphanumeric.test(name.value)){}
+        else{
+            add_li("W nazwie konta tylko litery i cyfry są dozwolone")
+            badInput(name)
+        } 
+    }
+
+    function checkEmail(){
+        if (emailRegex.test(email.value)){}
+        else{badInput(email)
+            add_li("zły Email!")
+        }
+
+    }
+
+    const emailRegex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)
+
+    function checkDate(){
+        console.log(date.value)
+        if (date.value==""){
+            badInput(date)
+            add_li("Wybierz datę!")
+            return
+        }
+
+        date_value = date.value.split("-")
+        date_back = parseInt(date_value[0]-18)+'-'+date_value[1]+'-'+date_value[2]
+        let currentDate = new Date()
+        currentDate=currentDate.toISOString().split('T')[0]
+        currentDate = currentDate.split("-")
+        currentDate_back = parseInt(currentDate[0]-18)+'-'+currentDate[1]+'-'+currentDate[2]
+        console.log(date_back)
+        console.log(currentDate_back)
+
+        if (currentDate_back>=date_back){
+            badInput(date)
+            add_li("Jesteś za młody szczylu!")
+        }
+    }
+
+    function add_li(error_text){
+        console.log(error_text)
+        error_list.innerHTML += "<li>"+error_text+"</li>"
+    }
+
+    function pass_star(pass){
+        return "*".repeat(pass.length)
+    }
+
+    function print_user(){
+        display_user=document.getElementById("user")
+        display_user.innerHTML="Nazwa użytkownika: "+name.value+"<br>"
+        display_user.innerHTML+="Hasło: "+pass_star(password1.value)+"<br>"
+        display_user.innerHTML+="Adres e-mail: "+email.value+"<br>"
+        display_user.innerHTML+="Data urodzenia: "+date_value[2]+'.'+date_value[1]+'.'+date_value[0]+"<br>"
+        display_user.innerHTML+="Płeć: "+gender+"<br>"
+        display_user.innerHTML+="Wersja konta: "+subscription+"<br>"
+
+    }
+
+    function validation(){
+        error_list.innerHTML=""
+        clearBadInput()
+
+        checkName()
+        checkEmail()
+        checkPassword()
+        checkDate()
+        gender = radioGenderChoice()
+        checkRegulamin()
+        subscription = radioSubscriptionChoice()
+        console.log(subscription+"Hello")
+        if (badInputList.length>0){
+            
+        }
+        else{
+            print_user()
+        }
+    }
+
+
+</script>

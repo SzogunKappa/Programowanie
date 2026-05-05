@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="main_body" >
+    <div id="border">
+        <img src="Canny-cat.gif" alt="CATT" id="cat" onclick="getClick()">
+    <div id="sidebar">
+    <form action="">
+        <label for="force">Force:<span id="force_count">0</span></label>
+        <br>
+        <label for="force">Price: <span id="price_force">---</span></label>
+        <br>
+        <input type="button" id="force" value="1x" onclick="GetStronger(1)">
+        <input type="button" id="force" value="5x" onclick="GetStronger(5)">
+        <input type="button" id="force" value="10x" onclick="GetStronger(10)">
+        <br><br>
+        <label for="Name">Side Whor... kitten lovers:<span id="kitty_lovers_count">0</span> </label>
+        <br>
+        <label for="workers">Price: <span id="women_price">---</span></label>
+        <br>
+        <input type="button" id="workers" value="1x" onclick="BuyWoman(1)">
+        <input type="button" id="workers" value="5x" onclick="BuyWoman(5)">
+        <input type="button" id="workers" value="10x" onclick="BuyWoman(10)">
+        <br><br>
+        <label for="Name">RESET</label>
+        <input type="button" value="DELETE COOKIES" onclick="reset_cookies()">
+                <input type="button" value="DELETE STORAGE" onclick="ClearStorage()">
+
+        
+    </form>
+    <p>Kisses</p>
+    <p id="wynik">----</p>
+    </div>
+    </div>
+</body>
+</html>
+
+<script>
+    let clicks = 0
+    let women = 0
+    let force = 1
+    let force_price = 10
+    let women_price = 100
+    let time = 0
+    const kitty_lovers_count = document.getElementById("kitty_lovers_count")
+    const force_count = document.getElementById("force_count")
+    const wynik = document.getElementById("wynik")
+    const hit_cat = document.getElementById("cat")
+    const price_force_doc=document.getElementById("price_force")
+    const women_price_doc=document.getElementById("women_price")
+    
+    
+
+
+    const getCookieValue = (name) => (
+    document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+    ) //Próbowałem użyć Cookie, nie udało mi się naprawić błąd NaN, Storage jest w 100% łatwiejsze
+
+    window.onload = function() {
+        //LoadCookies()
+        LoadStorage()
+        give_investment()
+        move_kitty()
+        SaveStorage()
+        const interval = window.setInterval(WorkingWoman,1000)
+    }
+
+    
+
+    function move_kitty(){
+        x_position = Math.random()*80
+        y_position = Math.random()*80
+        hit_cat.style.left = x_position + "%"
+        hit_cat.style.top = y_position +"%"
+    }
+
+    function LoadCookies(){
+        let x = document.cookie;
+        console.log(x)
+        x=x.split(';')
+        console.log(x)
+        clicks = parseInt(getCookieValue("clicks"))
+        console.log(clicks)
+        force = parseInt(getCookieValue("force"))
+        women=parseInt(getCookieValue("kitty_lovers_count"))
+        time=parseInt(getCookieValue("time"))
+        give_investment()
+        force_price = 10+5*force
+        women_price = 100*women
+        updateInfo()
+    }
+        //LoadCookies()
+
+
+    function LoadStorage(){
+        console.log("Loading Storage...")
+        if (localStorage.getItem("clicks_storage")){
+             clicks=localStorage.getItem("clicks_storage")
+        }
+        else{ clicks = 0}
+        
+        if (localStorage.getItem("kitty_storage")){
+             women=localStorage.getItem("kitty_storage")
+        }
+        else{ women = 0}
+        
+        if (localStorage.getItem("force_storage")){
+             force=parseInt(localStorage.getItem("force_storage"))
+        }
+        else{ force = 10}
+        if (localStorage.getItem("time_storage")){
+             time=localStorage.getItem("time_storage")
+        }
+        else{ time = 0}
+        women = parseInt(women)
+        clicks = parseInt(clicks)
+        force = parseInt(force)
+        time = parseInt(time)
+        give_investment()
+    }
+
+    function SaveStorage(){
+        time=Date.now()
+        localStorage.setItem("clicks_storage",clicks)
+        localStorage.setItem("kitty_storage",women)
+        localStorage.setItem("force_storage",force)
+        localStorage.setItem("time_storage",time)
+    }
+
+    function ClearStorage(){
+        localStorage.setItem("clicks_storage",0)
+        localStorage.setItem("kitty_storage",0)
+        localStorage.setItem("force_storage",1)
+        localStorage.setItem("time_storage",0)
+        LoadStorage()
+    }
+
+    function getClick(){
+        clicks=clicks+force
+        updateInfo()
+        SaveCookies()
+        move_kitty()
+    }
+
+    function give_investment(){
+        let time_diff = Math.floor((Date.now()-time)/1000)
+        console.log("Hello")
+        console.log(time)
+        console.log(time_diff)
+        clicks =clicks + women*time_diff
+    }
+
+    function reset_cookies(){
+        clicks = 0
+        women = 0
+        force = 1
+        updateInfo()
+    }
+
+    function SaveCookies(){
+        time=Date.now()
+        localStorage.setItem("clicks_storage",clicks)
+        localStorage.setItem("kitty_storage",women)
+        localStorage.setItem("force_storage",force)
+        localStorage.setItem("time_storage",time)
+        document.cookie = "clicks="+clicks
+        document.cookie =  "kitty_lovers_count="+women
+        document.cookie = "force="+force
+        document.cookie = "time="+time
+    }
+
+    function CreateUser(){
+        SaveCookies()
+    }
+
+    function BuyWoman(n){
+        n = parseInt(n)
+        if (clicks>=women_price*n){
+            clicks=clicks-women_price*n
+            women=women+n
+            women_price = 100*women
+            updateInfo()
+        }
+    }
+
+    function WorkingWoman(){
+        if (typeof clicks !== 'number'){
+            console.log("clicks nie jest INTEM")
+            return 0 
+        }
+        if (typeof women !== 'number'){
+            console.log("women nie jest INTEM")
+            return 0 
+        }
+        clicks=clicks+women
+        updateInfo()
+    }
+
+    function GetStronger(n){
+        if (clicks>=force_price*n){
+            clicks=clicks-force_price*n
+            force=force+n
+            updateInfo()
+        }
+    }
+
+    function updateInfo(){
+        force_price = 10+5*force
+        force_count.innerHTML=force
+        wynik.innerHTML=clicks;
+        kitty_lovers_count.innerHTML=women
+        price_force_doc.innerHTML=force_price
+        women_price_doc.innerHTML=women_price
+        SaveStorage()
+        //SaveCookies()
+        //display_cookies()
+    }
+
+    function display_cookies(){
+        let x = document.cookie;
+        console.log(x)
+        x=x.split(';')
+        console.log(x)
+        console.log(time)
+    }
+</script>

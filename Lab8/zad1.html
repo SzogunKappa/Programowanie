@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="user">
+        <label for="name">Imie</label>
+        <input type="text" id="name">
+        <label for="surname">Nazwisko</label>
+        <input type="text" id="surname">
+        <label for="age">Wiek</label>
+        <input type="number" id="age">
+        <input type="button" onclick="read_user()" value="Submit">
+    </form>
+    <table id="table_main">
+
+
+    </table>
+</body>
+</html>
+<script>
+    const table_display = document.getElementById("table_main")
+const user = {
+    name : "hold",
+    surname: "hold",
+    age: "hold",
+
+}
+
+function addRow(name,surname,value){
+    let newRow = table_display.insertRow(-1)
+    let newCellName= newRow.insertCell(0)
+    let newCellSurrname= newRow.insertCell(1)
+    let newCellNumber= newRow.insertCell(2)
+
+    let newText=document.createTextNode(name)
+    newCellName.appendChild(newText)
+    newText=document.createTextNode(surname)
+    newCellSurrname.appendChild(newText)
+    newText=document.createTextNode(value)
+    newCellNumber.appendChild(newText)
+
+
+
+}
+
+
+function read_user(){
+    doc_name = document.getElementById("name")
+    doc_surname = document.getElementById("surname")
+    doc_age = document.getElementById("age")
+    user.name = doc_name.value
+    user.surname = doc_surname.value
+    user.age = doc_age.value
+    console.log(user)
+    console.log(user.name)
+    console.log(user.surname)
+    console.log(user.age)
+    let userJSON = JSON.stringify(user)
+    console.log(userJSON)
+    addRow(user.name,user.surname,user.age)
+
+}
+</script>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="licznik">
+    <input type="text" id="mianownik">
+    <input type="button" value="Dziel" onclick="dziel()">
+    <p id="wynik"></p>
+</body>
+</html>
+
+<script>
+const licznik = document.getElementById("licznik")
+const mianownik = document.getElementById("mianownik")
+const wynik = document.getElementById("wynik")
+
+    function dziel(){
+        console.log("dziele")
+        wynik_liczba = parseInt(licznik.value)/parseInt(mianownik.value)
+        if (isNaN(wynik_liczba)){
+            wynik_liczba="podano złe wartości"
+        }
+        wynik.innerHTML=wynik_liczba
+    }
+
+</script>

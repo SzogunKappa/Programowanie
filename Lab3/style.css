@@ -3,6 +3,9 @@ body{
     font-family: calibri;
     font-size: large;
     color:darkblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #content{
   display: block;
@@ -15,7 +18,6 @@ body{
     height: 200px;
     overflow: auto;
     border: dashed;
-    margin-left: 10%;
     text-align: justify;
 }
 
@@ -36,8 +38,13 @@ a{
     color: green;
 }
 a:hover {
-    color:rgb(1, 56, 1);
+    color:green;
 }
 ul{
     list-style-type: circle;
+}
+p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

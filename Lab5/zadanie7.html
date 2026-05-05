@@ -1,11 +1,26 @@
 <script>
+
     const liczby_szes={
-        "AAA":"A",
+        10:"A",
         11:"B",
         12:"C",
         13:"D",
         14:"E",
         15:"F"
     }
-    console.log(liczby_szes.AAA)
+    function dzies_szes(n){
+        let odp=""
+        while (n>1){
+            let reszta = n%16
+            console.log("N: "+n+" %16 = "+reszta)
+            if (reszta>9){
+            reszta=liczby_szes[n%16]
+            }
+            odp=reszta+odp
+            n=Math.floor(n/16)
+        }
+        return odp
+
+    }
+    console.log(dzies_szes(111))
 </script>
